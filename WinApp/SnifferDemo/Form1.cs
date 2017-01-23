@@ -377,7 +377,20 @@ namespace SnifferDemo
             int packetLength = lastInPacketLength - 5;
             m_DataComparatorPayloadCounter++;
             m_DataComparatorBitCounter += packetLength * 8;
-            for (int i = 0; i < packetLength; i++)
+
+            // Handle the first byte as a special case, to support the Ignore PID function
+            byteDif = (int)lastInPacket[2] ^ (int)transmitPacketBuffer[0];
+            for (int bit = 0; bit < 8; bit++)
+            {
+                if (!checkBoxIgnorePid.Checked || bit >= 2)
+                {
+                    if ((byteDif & 0x00000001) != 0) m_DataComparatorBitErrorCounter++;
+                }
+                byteDif >>= 1;
+            }
+
+            // Handle the remaining bytes as normal. 
+            for (int i = 1; i < packetLength; i++)
             {
                 byteDif = (int)lastInPacket[i+2] ^ (int)transmitPacketBuffer[i];
                 for (int bit = 0; bit < 8; bit++)
@@ -1069,14 +1082,16 @@ namespace SnifferDemo
                 {
                     case 0:
                         break;
+
                     case 1:
                         numericIntTime.Enabled = true;
                         break;
+
                     case 2:
-
                         break;
-                    case 3:
 
+                    case 3:
+                        checkBoxIgnorePid.Enabled = true;
                         break;
                 }
             }
@@ -1087,14 +1102,16 @@ namespace SnifferDemo
                 {
                     case 0:
                         break;
+
                     case 1:
                         numericIntTime.Enabled = false;
                         break;
+
                     case 2:
-
                         break;
-                    case 3:
 
+                    case 3:
+                        checkBoxIgnorePid.Enabled = false;
                         break;
                 }
             }
