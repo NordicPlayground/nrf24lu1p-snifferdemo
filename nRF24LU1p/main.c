@@ -40,6 +40,9 @@
 #define CMD_TRANSMIT_PACKET    0x90
 #define CMD_INTERVAL_TRANSMIT  0x91
 
+#define CMD_TRANSMIT_PACKET_DUMP 0xA0
+
+#define DATA_DUMP_BUFFER_SIZE  150
 
 typedef enum e_UsbWriteCommands{ USB_FIRMWARE_VERSION = 0xa1, USB_BUTTON_PRESSED = 0xa2, USB_RADIO_DATA = 0xb0, USB_RADIO_CONFIG_DATA = 0xb1, USB_RADIO_CONFIRM_DEACTIVATE = 0xb2, USB_RADIO_PACKET_SENT = 0xb3, USB_MANY_PACKETS_RECEIVED = 0xc0, USB_TIME_BETWEEN_PACKETS = 0xC1 };
 data uint8_t packet_received=0, pckCounter = 0, i, radioActive = 0, allowRadioCom = 1, radio_status = RF_IDLE;
@@ -58,6 +61,9 @@ extern xdata volatile unsigned char in1bc;
 xdata uint8_t tx_buf[32];   
 data bit wdog_keep_alive = 1;
 uint8_t tx_pl;
+
+xdata uint8_t data_dump_buffer[DATA_DUMP_BUFFER_SIZE];
+xdata uint8_t data_dump_buffer_radio_offset;
 
 void some_delay()
 {
@@ -85,7 +91,7 @@ void activate_bootloader()
 void sendUsbPackage(uint8_t packageType);
 void parse_commands(void)
 {
-    unsigned char count = 0, i;
+    unsigned char count = 0, i, length, offset;
 
     switch(out1buf[0])
     {
@@ -150,6 +156,26 @@ void parse_commands(void)
         sendUsbPackage(USB_RADIO_PACKET_SENT); 
         hal_nrf_set_operation_mode(HAL_NRF_PRX);
         CE_HIGH();*/
+        break;
+      case CMD_TRANSMIT_PACKET_DUMP:
+        length = out1buf[1];
+        offset = out1buf[2];
+        // A length of 0xFF means we should flush the buffer over the radio
+        if(length == 0xFF)
+        {
+          CE_LOW();
+          hal_nrf_set_operation_mode(HAL_NRF_PTX);
+          radio_status = RF_BUSY;   
+          data_dump_buffer_radio_offset = 0;
+        }
+        // When the length is less than 0xFF and the sum of length + offset is less than the buffer size, 
+        // copy the data to the buffer
+        else if((length + offset) < DATA_DUMP_BUFFER_SIZE)
+        {
+            for(i = 0; i < length; i++)
+                data_dump_buffer[i + offset] = out1buf[i + 3];
+        }
+        
         break;
     default:
         break;
@@ -245,9 +271,9 @@ void main(void)
   RFCKEN = 1;        // enable L01 clock
   RFCTL = 0x10;      // L01 SPI speed = max (CK/2) & SPI enable
 
-  timer0_init();
+  //timer0_init();
   TICKDV = 32;
-  cklf_rtc_init(0x00, 100);
+  //cklf_rtc_init(0x00, 100);
   WUIRQ = 1;
   P0 = 0;
   EA = 1;  
