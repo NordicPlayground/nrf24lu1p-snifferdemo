@@ -326,8 +326,11 @@ namespace SnifferDemo
             {
                 if (listPackages.Items.Count >= maxListLength) listPackages.Items.RemoveAt(0);
 
-                if (addToList) listPackages.Items.Add(new DataPacket(lastInPacket, lastInPacketLength));
-                listPackages.SelectedIndex = listPackages.Items.Count - 1;
+                if (addToList)
+                {
+                    listPackages.Items.Add( new DataPacket(lastInPacket, lastInPacketLength));
+                    listPackages.SelectedIndex = listPackages.Items.Count - 1;
+                }
                 labelListSize.Text = "List size: " + listPackages.Items.Count;
             }
         }
@@ -404,6 +407,7 @@ namespace SnifferDemo
         }
         private void ProcessUsbPackage()
         {
+            //Console.Write("USB event: " + lastInPacket[0].ToString("X") + "\r\n");
             if (lastInPacketLength > 0)
             {
                 switch (lastInPacket[0])
@@ -418,6 +422,10 @@ namespace SnifferDemo
                         AddListItem(true);
                         break;
                     case 0xb0:
+                        String outString = "RX:";
+                        for (int i = 0; i < (lastInPacketLength-2); i++)
+                            outString += " " + lastInPacket[i+2].ToString("X2");
+                        Console.Write(outString + "\r\n");
                         radioPacketFrequencyCounter++;
                         if (CustomRadioFunctionality()) AddListItem(true);
                         break;

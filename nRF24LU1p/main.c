@@ -277,6 +277,8 @@ void timer0_init()
   ET0 = 1;
   TR0 = 1;
 }
+xdata volatile uint8_t usb_packet_being_sent = false;
+
 void main(void)
 {
   int i;
@@ -371,15 +373,17 @@ void main(void)
       }
       else
       {
+            if(!hal_nrf_rx_fifo_empty ())
+            {
+              received_packets++;
+              radio_packet_length = hal_nrf_read_rx_pl_w();
+              hal_nrf_read_multibyte_reg(HAL_NRF_RX_PLOAD, pload);
+              //while(usb_packet_being_sent);
+              usb_send_radio_data(radio_packet_length);
+
+            }
         if( radio_status == RF_RX_DR )
         {
-          //if( send_time_between_packets )
-            //usb_send_radio_and_freq_data(radio_packet_length);  
-            if( send_time_between_packets )
-            {
-              usb_send_radio_and_freq_data(radio_packet_length);
-              send_time_between_packets = 0;
-            }else usb_send_radio_data(radio_packet_length);
           radio_status = RF_IDLE;
         }
         if( packet_sent )
@@ -410,12 +414,13 @@ void rtc_interrupt() interrupt INTERRUPT_WU
 void usbInterrupt() interrupt INTERRUPT_USB_INT
 {
   P01 = !P01;
-  usb_irq();      
+  usb_irq();  
   if(packet_received == 1)
   {
     parse_commands();
     packet_received = 0;
   }
+  usb_packet_being_sent = false;
 }
 void rf_interrupt() interrupt INTERRUPT_RFIRQ
 {
@@ -436,25 +441,6 @@ void rf_interrupt() interrupt INTERRUPT_RFIRQ
       break;
     
     case (1<<HAL_NRF_RX_DR):                  // Packet received
-      TR0 = 0;
-      tbp3 = time_between_packets_hibyte;
-      if( update_time_between_packets )
-      {
-        P00 = !P00;
-        tbp1 = TL0;
-        tbp2 = TH0;
-        update_time_between_packets = 0;
-        send_time_between_packets = 1;
-      }
-      TH0 = TL0 = 0;
-      time_between_packets_hibyte = 0;
-      TR0 = 1;
-      if (!hal_nrf_rx_fifo_empty ())
-      {
-        received_packets++;
-        radio_packet_length = hal_nrf_read_rx_pl_w();
-        hal_nrf_read_multibyte_reg(HAL_NRF_RX_PLOAD, pload);
-      }
       radio_status = RF_RX_DR;
       break;
 
