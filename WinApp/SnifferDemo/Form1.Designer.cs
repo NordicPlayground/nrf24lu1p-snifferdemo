@@ -87,6 +87,8 @@ namespace SnifferDemo
             this.labelPckCounter = new System.Windows.Forms.Label();
             this.buttonClearList = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.labelDataDump = new System.Windows.Forms.Label();
+            this.buttonSendDataDump = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.txSweep = new System.Windows.Forms.Timer(this.components);
             this.labelControl = new System.Windows.Forms.Label();
@@ -96,6 +98,7 @@ namespace SnifferDemo
             this.radioControl2 = new System.Windows.Forms.RadioButton();
             this.radioControl1 = new System.Windows.Forms.RadioButton();
             this.radioControl0 = new System.Windows.Forms.RadioButton();
+            this.buttonDataDump2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericChannel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericAddressLength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericAddress1)).BeginInit();
@@ -117,20 +120,18 @@ namespace SnifferDemo
             // 
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(8, 41);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(6, 33);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(89, 21);
+            this.label9.Size = new System.Drawing.Size(67, 17);
             this.label9.TabIndex = 20;
             this.label9.Text = "Channel:";
             // 
             // buttonActivateRadio
             // 
             this.buttonActivateRadio.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonActivateRadio.Location = new System.Drawing.Point(16, 258);
-            this.buttonActivateRadio.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonActivateRadio.Location = new System.Drawing.Point(12, 210);
             this.buttonActivateRadio.Name = "buttonActivateRadio";
-            this.buttonActivateRadio.Size = new System.Drawing.Size(427, 28);
+            this.buttonActivateRadio.Size = new System.Drawing.Size(320, 23);
             this.buttonActivateRadio.TabIndex = 24;
             this.buttonActivateRadio.Text = "Activate Radio";
             this.buttonActivateRadio.UseVisualStyleBackColor = true;
@@ -139,15 +140,14 @@ namespace SnifferDemo
             // numericChannel
             // 
             this.numericChannel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericChannel.Location = new System.Drawing.Point(131, 37);
-            this.numericChannel.Margin = new System.Windows.Forms.Padding(4);
+            this.numericChannel.Location = new System.Drawing.Point(98, 30);
             this.numericChannel.Maximum = new decimal(new int[] {
             125,
             0,
             0,
             0});
             this.numericChannel.Name = "numericChannel";
-            this.numericChannel.Size = new System.Drawing.Size(51, 23);
+            this.numericChannel.Size = new System.Drawing.Size(38, 20);
             this.numericChannel.TabIndex = 25;
             this.numericChannel.Value = new decimal(new int[] {
             2,
@@ -159,8 +159,7 @@ namespace SnifferDemo
             // numericAddressLength
             // 
             this.numericAddressLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericAddressLength.Location = new System.Drawing.Point(131, 101);
-            this.numericAddressLength.Margin = new System.Windows.Forms.Padding(4);
+            this.numericAddressLength.Location = new System.Drawing.Point(98, 82);
             this.numericAddressLength.Maximum = new decimal(new int[] {
             5,
             0,
@@ -172,7 +171,7 @@ namespace SnifferDemo
             0,
             0});
             this.numericAddressLength.Name = "numericAddressLength";
-            this.numericAddressLength.Size = new System.Drawing.Size(51, 23);
+            this.numericAddressLength.Size = new System.Drawing.Size(38, 20);
             this.numericAddressLength.TabIndex = 26;
             this.numericAddressLength.Value = new decimal(new int[] {
             5,
@@ -186,15 +185,14 @@ namespace SnifferDemo
             // 
             this.numericAddress1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericAddress1.Hexadecimal = true;
-            this.numericAddress1.Location = new System.Drawing.Point(131, 133);
-            this.numericAddress1.Margin = new System.Windows.Forms.Padding(4);
+            this.numericAddress1.Location = new System.Drawing.Point(98, 108);
             this.numericAddress1.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.numericAddress1.Name = "numericAddress1";
-            this.numericAddress1.Size = new System.Drawing.Size(51, 23);
+            this.numericAddress1.Size = new System.Drawing.Size(38, 20);
             this.numericAddress1.TabIndex = 27;
             this.numericAddress1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericAddress1.Value = new decimal(new int[] {
@@ -208,15 +206,14 @@ namespace SnifferDemo
             // 
             this.numericAddress2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericAddress2.Hexadecimal = true;
-            this.numericAddress2.Location = new System.Drawing.Point(189, 132);
-            this.numericAddress2.Margin = new System.Windows.Forms.Padding(4);
+            this.numericAddress2.Location = new System.Drawing.Point(142, 107);
             this.numericAddress2.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.numericAddress2.Name = "numericAddress2";
-            this.numericAddress2.Size = new System.Drawing.Size(51, 23);
+            this.numericAddress2.Size = new System.Drawing.Size(38, 20);
             this.numericAddress2.TabIndex = 28;
             this.numericAddress2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericAddress2.Value = new decimal(new int[] {
@@ -230,15 +227,14 @@ namespace SnifferDemo
             // 
             this.numericAddress3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericAddress3.Hexadecimal = true;
-            this.numericAddress3.Location = new System.Drawing.Point(248, 132);
-            this.numericAddress3.Margin = new System.Windows.Forms.Padding(4);
+            this.numericAddress3.Location = new System.Drawing.Point(186, 107);
             this.numericAddress3.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.numericAddress3.Name = "numericAddress3";
-            this.numericAddress3.Size = new System.Drawing.Size(51, 23);
+            this.numericAddress3.Size = new System.Drawing.Size(38, 20);
             this.numericAddress3.TabIndex = 29;
             this.numericAddress3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericAddress3.Value = new decimal(new int[] {
@@ -252,15 +248,14 @@ namespace SnifferDemo
             // 
             this.numericAddress4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericAddress4.Hexadecimal = true;
-            this.numericAddress4.Location = new System.Drawing.Point(307, 132);
-            this.numericAddress4.Margin = new System.Windows.Forms.Padding(4);
+            this.numericAddress4.Location = new System.Drawing.Point(230, 107);
             this.numericAddress4.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.numericAddress4.Name = "numericAddress4";
-            this.numericAddress4.Size = new System.Drawing.Size(51, 23);
+            this.numericAddress4.Size = new System.Drawing.Size(38, 20);
             this.numericAddress4.TabIndex = 30;
             this.numericAddress4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericAddress4.Value = new decimal(new int[] {
@@ -274,15 +269,14 @@ namespace SnifferDemo
             // 
             this.numericAddress5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numericAddress5.Hexadecimal = true;
-            this.numericAddress5.Location = new System.Drawing.Point(365, 132);
-            this.numericAddress5.Margin = new System.Windows.Forms.Padding(4);
+            this.numericAddress5.Location = new System.Drawing.Point(274, 107);
             this.numericAddress5.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.numericAddress5.Name = "numericAddress5";
-            this.numericAddress5.Size = new System.Drawing.Size(51, 23);
+            this.numericAddress5.Size = new System.Drawing.Size(38, 20);
             this.numericAddress5.TabIndex = 31;
             this.numericAddress5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericAddress5.Value = new decimal(new int[] {
@@ -296,10 +290,9 @@ namespace SnifferDemo
             // 
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(8, 105);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Location = new System.Drawing.Point(6, 85);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(135, 21);
+            this.label10.Size = new System.Drawing.Size(101, 17);
             this.label10.TabIndex = 32;
             this.label10.Text = "Address length:";
             // 
@@ -307,10 +300,9 @@ namespace SnifferDemo
             // 
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(8, 137);
-            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Location = new System.Drawing.Point(6, 111);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(135, 21);
+            this.label11.Size = new System.Drawing.Size(101, 17);
             this.label11.TabIndex = 33;
             this.label11.Text = "Address:";
             // 
@@ -318,10 +310,9 @@ namespace SnifferDemo
             // 
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(8, 169);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Location = new System.Drawing.Point(6, 137);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(135, 21);
+            this.label12.Size = new System.Drawing.Size(101, 17);
             this.label12.TabIndex = 34;
             this.label12.Text = "Radio mode:";
             // 
@@ -329,18 +320,16 @@ namespace SnifferDemo
             // 
             this.label13.BackColor = System.Drawing.Color.Transparent;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(8, 73);
-            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label13.Location = new System.Drawing.Point(6, 59);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(115, 21);
+            this.label13.Size = new System.Drawing.Size(86, 17);
             this.label13.TabIndex = 37;
             this.label13.Text = "Payload length:";
             // 
             // numericPayloadLength
             // 
             this.numericPayloadLength.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericPayloadLength.Location = new System.Drawing.Point(131, 69);
-            this.numericPayloadLength.Margin = new System.Windows.Forms.Padding(4);
+            this.numericPayloadLength.Location = new System.Drawing.Point(98, 56);
             this.numericPayloadLength.Maximum = new decimal(new int[] {
             32,
             0,
@@ -352,7 +341,7 @@ namespace SnifferDemo
             0,
             0});
             this.numericPayloadLength.Name = "numericPayloadLength";
-            this.numericPayloadLength.Size = new System.Drawing.Size(51, 23);
+            this.numericPayloadLength.Size = new System.Drawing.Size(38, 20);
             this.numericPayloadLength.TabIndex = 36;
             this.numericPayloadLength.Value = new decimal(new int[] {
             1,
@@ -365,10 +354,9 @@ namespace SnifferDemo
             // 
             this.label14.BackColor = System.Drawing.Color.Transparent;
             this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(220, 41);
-            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Location = new System.Drawing.Point(165, 33);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(60, 21);
+            this.label14.Size = new System.Drawing.Size(45, 17);
             this.label14.TabIndex = 38;
             this.label14.Text = "CRC:";
             // 
@@ -376,10 +364,9 @@ namespace SnifferDemo
             // 
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(220, 73);
-            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label15.Location = new System.Drawing.Point(165, 59);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(60, 22);
+            this.label15.Size = new System.Drawing.Size(45, 18);
             this.label15.TabIndex = 39;
             this.label15.Text = "Bitrate:";
             // 
@@ -391,10 +378,9 @@ namespace SnifferDemo
             "Off",
             "On, 8-bit",
             "On, 16-bit"});
-            this.comboBoxCrc.Location = new System.Drawing.Point(307, 36);
-            this.comboBoxCrc.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxCrc.Location = new System.Drawing.Point(230, 29);
             this.comboBoxCrc.Name = "comboBoxCrc";
-            this.comboBoxCrc.Size = new System.Drawing.Size(108, 25);
+            this.comboBoxCrc.Size = new System.Drawing.Size(82, 21);
             this.comboBoxCrc.TabIndex = 40;
             this.comboBoxCrc.Leave += new System.EventHandler(this.radioGuiChanged);
             // 
@@ -406,10 +392,9 @@ namespace SnifferDemo
             "250 KBit",
             "1 MBit",
             "2 MBit"});
-            this.comboBoxBitrate.Location = new System.Drawing.Point(307, 69);
-            this.comboBoxBitrate.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxBitrate.Location = new System.Drawing.Point(230, 56);
             this.comboBoxBitrate.Name = "comboBoxBitrate";
-            this.comboBoxBitrate.Size = new System.Drawing.Size(108, 25);
+            this.comboBoxBitrate.Size = new System.Drawing.Size(82, 21);
             this.comboBoxBitrate.TabIndex = 41;
             this.comboBoxBitrate.Leave += new System.EventHandler(this.radioGuiChanged);
             // 
@@ -427,10 +412,9 @@ namespace SnifferDemo
             this.statusUsb,
             this.statusRadio,
             this.statusFrequency});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 687);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 554);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1357, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1018, 22);
             this.statusStrip1.TabIndex = 50;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -500,11 +484,9 @@ namespace SnifferDemo
             this.groupConfig.Controls.Add(this.label11);
             this.groupConfig.Controls.Add(this.label12);
             this.groupConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupConfig.Location = new System.Drawing.Point(16, 7);
-            this.groupConfig.Margin = new System.Windows.Forms.Padding(4);
+            this.groupConfig.Location = new System.Drawing.Point(12, 6);
             this.groupConfig.Name = "groupConfig";
-            this.groupConfig.Padding = new System.Windows.Forms.Padding(4);
-            this.groupConfig.Size = new System.Drawing.Size(427, 244);
+            this.groupConfig.Size = new System.Drawing.Size(320, 198);
             this.groupConfig.TabIndex = 51;
             this.groupConfig.TabStop = false;
             this.groupConfig.Text = "Radio Configuration";
@@ -519,20 +501,18 @@ namespace SnifferDemo
             "Enh. shockburst",
             "Enh. shockburst w/dynamic payload length",
             "Auto mode"});
-            this.comboBoxMode.Location = new System.Drawing.Point(129, 165);
-            this.comboBoxMode.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxMode.Location = new System.Drawing.Point(97, 134);
             this.comboBoxMode.Name = "comboBoxMode";
-            this.comboBoxMode.Size = new System.Drawing.Size(284, 25);
+            this.comboBoxMode.Size = new System.Drawing.Size(214, 21);
             this.comboBoxMode.TabIndex = 63;
             this.comboBoxMode.Leave += new System.EventHandler(this.radioGuiChanged);
             // 
             // buttonSaveSettings
             // 
             this.buttonSaveSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSaveSettings.Location = new System.Drawing.Point(7, 210);
-            this.buttonSaveSettings.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSaveSettings.Location = new System.Drawing.Point(5, 171);
             this.buttonSaveSettings.Name = "buttonSaveSettings";
-            this.buttonSaveSettings.Size = new System.Drawing.Size(115, 26);
+            this.buttonSaveSettings.Size = new System.Drawing.Size(86, 21);
             this.buttonSaveSettings.TabIndex = 57;
             this.buttonSaveSettings.Text = "Save settings";
             this.buttonSaveSettings.UseVisualStyleBackColor = true;
@@ -542,18 +522,16 @@ namespace SnifferDemo
             // 
             this.comboBoxSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxSettings.FormattingEnabled = true;
-            this.comboBoxSettings.Location = new System.Drawing.Point(129, 210);
-            this.comboBoxSettings.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxSettings.Location = new System.Drawing.Point(97, 171);
             this.comboBoxSettings.Name = "comboBoxSettings";
-            this.comboBoxSettings.Size = new System.Drawing.Size(284, 25);
+            this.comboBoxSettings.Size = new System.Drawing.Size(214, 21);
             this.comboBoxSettings.TabIndex = 56;
             this.comboBoxSettings.SelectedIndexChanged += new System.EventHandler(this.comboBoxSettings_SelectedIndexChanged);
             // 
             // numericIntTime
             // 
             this.numericIntTime.Enabled = false;
-            this.numericIntTime.Location = new System.Drawing.Point(312, 52);
-            this.numericIntTime.Margin = new System.Windows.Forms.Padding(4);
+            this.numericIntTime.Location = new System.Drawing.Point(234, 42);
             this.numericIntTime.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -565,7 +543,7 @@ namespace SnifferDemo
             0,
             0});
             this.numericIntTime.Name = "numericIntTime";
-            this.numericIntTime.Size = new System.Drawing.Size(85, 23);
+            this.numericIntTime.Size = new System.Drawing.Size(64, 20);
             this.numericIntTime.TabIndex = 62;
             this.numericIntTime.Value = new decimal(new int[] {
             100,
@@ -577,10 +555,9 @@ namespace SnifferDemo
             // 
             this.labelTransmit.BackColor = System.Drawing.Color.Transparent;
             this.labelTransmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTransmit.Location = new System.Drawing.Point(364, 193);
-            this.labelTransmit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelTransmit.Location = new System.Drawing.Point(273, 157);
             this.labelTransmit.Name = "labelTransmit";
-            this.labelTransmit.Size = new System.Drawing.Size(55, 23);
+            this.labelTransmit.Size = new System.Drawing.Size(41, 19);
             this.labelTransmit.TabIndex = 60;
             this.labelTransmit.Text = "HEX";
             this.labelTransmit.Click += new System.EventHandler(this.labelTransmit_Click);
@@ -588,10 +565,9 @@ namespace SnifferDemo
             // btnControlStartStop
             // 
             this.btnControlStartStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnControlStartStop.Location = new System.Drawing.Point(7, 161);
-            this.btnControlStartStop.Margin = new System.Windows.Forms.Padding(4);
+            this.btnControlStartStop.Location = new System.Drawing.Point(5, 131);
             this.btnControlStartStop.Name = "btnControlStartStop";
-            this.btnControlStartStop.Size = new System.Drawing.Size(412, 27);
+            this.btnControlStartStop.Size = new System.Drawing.Size(309, 22);
             this.btnControlStartStop.TabIndex = 59;
             this.btnControlStartStop.Text = "Transmit single packet";
             this.btnControlStartStop.UseVisualStyleBackColor = true;
@@ -599,10 +575,9 @@ namespace SnifferDemo
             // 
             // textBoxTransmit
             // 
-            this.textBoxTransmit.Location = new System.Drawing.Point(7, 192);
-            this.textBoxTransmit.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxTransmit.Location = new System.Drawing.Point(5, 156);
             this.textBoxTransmit.Name = "textBoxTransmit";
-            this.textBoxTransmit.Size = new System.Drawing.Size(359, 23);
+            this.textBoxTransmit.Size = new System.Drawing.Size(270, 20);
             this.textBoxTransmit.TabIndex = 58;
             this.textBoxTransmit.TextChanged += new System.EventHandler(this.textBoxTransmit_TextChanged);
             // 
@@ -614,10 +589,9 @@ namespace SnifferDemo
             // 
             // buttonResetDongle
             // 
-            this.buttonResetDongle.Location = new System.Drawing.Point(241, 606);
-            this.buttonResetDongle.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonResetDongle.Location = new System.Drawing.Point(181, 492);
             this.buttonResetDongle.Name = "buttonResetDongle";
-            this.buttonResetDongle.Size = new System.Drawing.Size(165, 26);
+            this.buttonResetDongle.Size = new System.Drawing.Size(124, 21);
             this.buttonResetDongle.TabIndex = 58;
             this.buttonResetDongle.Text = "Reset Dongle";
             this.buttonResetDongle.UseVisualStyleBackColor = true;
@@ -626,10 +600,9 @@ namespace SnifferDemo
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(415, 606);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Location = new System.Drawing.Point(311, 492);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(144, 27);
+            this.button2.Size = new System.Drawing.Size(108, 22);
             this.button2.TabIndex = 55;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
@@ -638,10 +611,9 @@ namespace SnifferDemo
             // 
             // buttonFirmware
             // 
-            this.buttonFirmware.Location = new System.Drawing.Point(8, 603);
-            this.buttonFirmware.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonFirmware.Location = new System.Drawing.Point(6, 490);
             this.buttonFirmware.Name = "buttonFirmware";
-            this.buttonFirmware.Size = new System.Drawing.Size(225, 28);
+            this.buttonFirmware.Size = new System.Drawing.Size(169, 23);
             this.buttonFirmware.TabIndex = 54;
             this.buttonFirmware.Text = "Update Firmware";
             this.buttonFirmware.UseVisualStyleBackColor = true;
@@ -668,11 +640,10 @@ namespace SnifferDemo
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(451, 7);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControl1.Location = new System.Drawing.Point(338, 6);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(907, 671);
+            this.tabControl1.Size = new System.Drawing.Size(680, 545);
             this.tabControl1.TabIndex = 54;
             // 
             // tabPage1
@@ -694,11 +665,10 @@ namespace SnifferDemo
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.labelPckCounter);
             this.tabPage1.Controls.Add(this.buttonClearList);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(899, 642);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(672, 519);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Received Packets";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -709,10 +679,9 @@ namespace SnifferDemo
             this.comboBoxListDisp.Items.AddRange(new object[] {
             "Dec",
             "Hex"});
-            this.comboBoxListDisp.Location = new System.Drawing.Point(421, 607);
-            this.comboBoxListDisp.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxListDisp.Location = new System.Drawing.Point(316, 493);
             this.comboBoxListDisp.Name = "comboBoxListDisp";
-            this.comboBoxListDisp.Size = new System.Drawing.Size(61, 24);
+            this.comboBoxListDisp.Size = new System.Drawing.Size(47, 21);
             this.comboBoxListDisp.TabIndex = 73;
             this.comboBoxListDisp.Visible = false;
             this.comboBoxListDisp.SelectedIndexChanged += new System.EventHandler(this.comboBoxListDisp_SelectedIndexChanged);
@@ -723,10 +692,9 @@ namespace SnifferDemo
             this.checkBoxUpdateList.Checked = true;
             this.checkBoxUpdateList.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxUpdateList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxUpdateList.Location = new System.Drawing.Point(312, 610);
-            this.checkBoxUpdateList.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxUpdateList.Location = new System.Drawing.Point(234, 496);
             this.checkBoxUpdateList.Name = "checkBoxUpdateList";
-            this.checkBoxUpdateList.Size = new System.Drawing.Size(97, 21);
+            this.checkBoxUpdateList.Size = new System.Drawing.Size(76, 17);
             this.checkBoxUpdateList.TabIndex = 72;
             this.checkBoxUpdateList.Text = "Update list";
             this.checkBoxUpdateList.UseVisualStyleBackColor = true;
@@ -737,10 +705,9 @@ namespace SnifferDemo
             this.checkBoxRecvRadioCom.Checked = true;
             this.checkBoxRecvRadioCom.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxRecvRadioCom.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxRecvRadioCom.Location = new System.Drawing.Point(193, 610);
-            this.checkBoxRecvRadioCom.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxRecvRadioCom.Location = new System.Drawing.Point(145, 496);
             this.checkBoxRecvRadioCom.Name = "checkBoxRecvRadioCom";
-            this.checkBoxRecvRadioCom.Size = new System.Drawing.Size(103, 21);
+            this.checkBoxRecvRadioCom.Size = new System.Drawing.Size(83, 17);
             this.checkBoxRecvRadioCom.TabIndex = 70;
             this.checkBoxRecvRadioCom.Text = "Receive RF";
             this.checkBoxRecvRadioCom.UseVisualStyleBackColor = true;
@@ -748,10 +715,9 @@ namespace SnifferDemo
             // buttonSaveFile
             // 
             this.buttonSaveFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSaveFile.Location = new System.Drawing.Point(99, 607);
-            this.buttonSaveFile.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSaveFile.Location = new System.Drawing.Point(74, 493);
             this.buttonSaveFile.Name = "buttonSaveFile";
-            this.buttonSaveFile.Size = new System.Drawing.Size(87, 25);
+            this.buttonSaveFile.Size = new System.Drawing.Size(65, 20);
             this.buttonSaveFile.TabIndex = 69;
             this.buttonSaveFile.Text = "Save list";
             this.buttonSaveFile.UseVisualStyleBackColor = true;
@@ -761,10 +727,9 @@ namespace SnifferDemo
             // 
             this.label17.BackColor = System.Drawing.SystemColors.Control;
             this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(4, 1);
-            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label17.Location = new System.Drawing.Point(3, 1);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(567, 17);
+            this.label17.Size = new System.Drawing.Size(425, 14);
             this.label17.TabIndex = 68;
             this.label17.Text = "Incomming USB-packets";
             // 
@@ -772,10 +737,9 @@ namespace SnifferDemo
             // 
             this.labelListSize.BackColor = System.Drawing.Color.Transparent;
             this.labelListSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelListSize.Location = new System.Drawing.Point(497, 612);
-            this.labelListSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelListSize.Location = new System.Drawing.Point(373, 497);
             this.labelListSize.Name = "labelListSize";
-            this.labelListSize.Size = new System.Drawing.Size(101, 23);
+            this.labelListSize.Size = new System.Drawing.Size(76, 19);
             this.labelListSize.TabIndex = 57;
             this.labelListSize.Text = "List size: 0";
             // 
@@ -783,11 +747,9 @@ namespace SnifferDemo
             // 
             this.listPackages.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listPackages.FormattingEnabled = true;
-            this.listPackages.ItemHeight = 17;
-            this.listPackages.Location = new System.Drawing.Point(8, 22);
-            this.listPackages.Margin = new System.Windows.Forms.Padding(4);
+            this.listPackages.Location = new System.Drawing.Point(6, 18);
             this.listPackages.Name = "listPackages";
-            this.listPackages.Size = new System.Drawing.Size(589, 565);
+            this.listPackages.Size = new System.Drawing.Size(443, 459);
             this.listPackages.TabIndex = 56;
             this.listPackages.SelectedIndexChanged += new System.EventHandler(this.listPackages_SelectedIndexChanged);
             // 
@@ -795,10 +757,9 @@ namespace SnifferDemo
             // 
             this.label4.BackColor = System.Drawing.SystemColors.Control;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(607, 4);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(455, 3);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(208, 20);
+            this.label4.Size = new System.Drawing.Size(156, 16);
             this.label4.TabIndex = 58;
             this.label4.Text = "Packet details";
             // 
@@ -806,10 +767,9 @@ namespace SnifferDemo
             // 
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(607, 23);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(455, 19);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 20);
+            this.label2.Size = new System.Drawing.Size(51, 16);
             this.label2.TabIndex = 59;
             this.label2.Text = "Type:";
             // 
@@ -817,10 +777,9 @@ namespace SnifferDemo
             // 
             this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(607, 57);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(455, 46);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(68, 20);
+            this.label5.Size = new System.Drawing.Size(51, 16);
             this.label5.TabIndex = 60;
             this.label5.Text = "Length:";
             // 
@@ -828,40 +787,36 @@ namespace SnifferDemo
             // 
             this.labelPckType.BackColor = System.Drawing.Color.White;
             this.labelPckType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPckType.Location = new System.Drawing.Point(683, 23);
-            this.labelPckType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelPckType.Location = new System.Drawing.Point(512, 19);
             this.labelPckType.Name = "labelPckType";
-            this.labelPckType.Size = new System.Drawing.Size(207, 20);
+            this.labelPckType.Size = new System.Drawing.Size(155, 16);
             this.labelPckType.TabIndex = 61;
             // 
             // labelPckSize
             // 
             this.labelPckSize.BackColor = System.Drawing.Color.White;
             this.labelPckSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPckSize.Location = new System.Drawing.Point(683, 57);
-            this.labelPckSize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelPckSize.Location = new System.Drawing.Point(512, 46);
             this.labelPckSize.Name = "labelPckSize";
-            this.labelPckSize.Size = new System.Drawing.Size(75, 20);
+            this.labelPckSize.Size = new System.Drawing.Size(56, 16);
             this.labelPckSize.TabIndex = 62;
             // 
             // label8
             // 
             this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(607, 89);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Location = new System.Drawing.Point(455, 72);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(283, 20);
+            this.label8.Size = new System.Drawing.Size(212, 16);
             this.label8.TabIndex = 63;
             this.label8.Text = "Content:";
             // 
             // textBoxPckContent
             // 
             this.textBoxPckContent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPckContent.Location = new System.Drawing.Point(607, 112);
-            this.textBoxPckContent.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxPckContent.Location = new System.Drawing.Point(455, 91);
             this.textBoxPckContent.Name = "textBoxPckContent";
-            this.textBoxPckContent.Size = new System.Drawing.Size(281, 517);
+            this.textBoxPckContent.Size = new System.Drawing.Size(212, 421);
             this.textBoxPckContent.TabIndex = 64;
             this.textBoxPckContent.Text = "";
             // 
@@ -869,10 +824,9 @@ namespace SnifferDemo
             // 
             this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(765, 57);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(574, 46);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 20);
+            this.label6.Size = new System.Drawing.Size(51, 16);
             this.label6.TabIndex = 65;
             this.label6.Text = "Counter:";
             // 
@@ -880,19 +834,17 @@ namespace SnifferDemo
             // 
             this.labelPckCounter.BackColor = System.Drawing.Color.White;
             this.labelPckCounter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPckCounter.Location = new System.Drawing.Point(841, 57);
-            this.labelPckCounter.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelPckCounter.Location = new System.Drawing.Point(631, 46);
             this.labelPckCounter.Name = "labelPckCounter";
-            this.labelPckCounter.Size = new System.Drawing.Size(48, 20);
+            this.labelPckCounter.Size = new System.Drawing.Size(36, 16);
             this.labelPckCounter.TabIndex = 66;
             // 
             // buttonClearList
             // 
             this.buttonClearList.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClearList.Location = new System.Drawing.Point(4, 607);
-            this.buttonClearList.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonClearList.Location = new System.Drawing.Point(3, 493);
             this.buttonClearList.Name = "buttonClearList";
-            this.buttonClearList.Size = new System.Drawing.Size(87, 25);
+            this.buttonClearList.Size = new System.Drawing.Size(65, 20);
             this.buttonClearList.TabIndex = 67;
             this.buttonClearList.Text = "Clear List";
             this.buttonClearList.UseVisualStyleBackColor = true;
@@ -900,25 +852,44 @@ namespace SnifferDemo
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonDataDump2);
+            this.tabPage2.Controls.Add(this.labelDataDump);
+            this.tabPage2.Controls.Add(this.buttonSendDataDump);
             this.tabPage2.Controls.Add(this.buttonResetDongle);
             this.tabPage2.Controls.Add(this.buttonFirmware);
             this.tabPage2.Controls.Add(this.button2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(899, 642);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(672, 519);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Custom Area";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // labelDataDump
+            // 
+            this.labelDataDump.Location = new System.Drawing.Point(6, 42);
+            this.labelDataDump.Name = "labelDataDump";
+            this.labelDataDump.Size = new System.Drawing.Size(232, 38);
+            this.labelDataDump.TabIndex = 60;
+            this.labelDataDump.Text = "label1";
+            // 
+            // buttonSendDataDump
+            // 
+            this.buttonSendDataDump.Location = new System.Drawing.Point(6, 8);
+            this.buttonSendDataDump.Name = "buttonSendDataDump";
+            this.buttonSendDataDump.Size = new System.Drawing.Size(232, 23);
+            this.buttonSendDataDump.TabIndex = 59;
+            this.buttonSendDataDump.Text = "Send Data Dump (0,1,2,....,149)";
+            this.buttonSendDataDump.UseVisualStyleBackColor = true;
+            this.buttonSendDataDump.Click += new System.EventHandler(this.buttonSendDataDump_Click);
+            // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(16, 654);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(12, 531);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(149, 25);
+            this.button1.Size = new System.Drawing.Size(112, 20);
             this.button1.TabIndex = 71;
             this.button1.Text = "About";
             this.button1.UseVisualStyleBackColor = true;
@@ -933,10 +904,9 @@ namespace SnifferDemo
             // 
             this.labelControl.BackColor = System.Drawing.Color.Transparent;
             this.labelControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl.Location = new System.Drawing.Point(4, 220);
-            this.labelControl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelControl.Location = new System.Drawing.Point(3, 179);
             this.labelControl.Name = "labelControl";
-            this.labelControl.Size = new System.Drawing.Size(409, 123);
+            this.labelControl.Size = new System.Drawing.Size(307, 100);
             this.labelControl.TabIndex = 64;
             this.labelControl.Text = "Analyzed payloads: 0";
             // 
@@ -954,11 +924,9 @@ namespace SnifferDemo
             this.groupControl.Controls.Add(this.labelTransmit);
             this.groupControl.Enabled = false;
             this.groupControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl.Location = new System.Drawing.Point(16, 294);
-            this.groupControl.Margin = new System.Windows.Forms.Padding(4);
+            this.groupControl.Location = new System.Drawing.Point(12, 239);
             this.groupControl.Name = "groupControl";
-            this.groupControl.Padding = new System.Windows.Forms.Padding(4);
-            this.groupControl.Size = new System.Drawing.Size(427, 352);
+            this.groupControl.Size = new System.Drawing.Size(320, 286);
             this.groupControl.TabIndex = 73;
             this.groupControl.TabStop = false;
             this.groupControl.Text = "Radio control";
@@ -969,9 +937,10 @@ namespace SnifferDemo
             this.checkBoxIgnorePid.Checked = true;
             this.checkBoxIgnorePid.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxIgnorePid.Enabled = false;
-            this.checkBoxIgnorePid.Location = new System.Drawing.Point(312, 108);
+            this.checkBoxIgnorePid.Location = new System.Drawing.Point(234, 88);
+            this.checkBoxIgnorePid.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxIgnorePid.Name = "checkBoxIgnorePid";
-            this.checkBoxIgnorePid.Size = new System.Drawing.Size(106, 21);
+            this.checkBoxIgnorePid.Size = new System.Drawing.Size(87, 17);
             this.checkBoxIgnorePid.TabIndex = 77;
             this.checkBoxIgnorePid.Text = "Ignore PID";
             this.checkBoxIgnorePid.UseVisualStyleBackColor = true;
@@ -979,10 +948,9 @@ namespace SnifferDemo
             // radioControl3
             // 
             this.radioControl3.AutoSize = true;
-            this.radioControl3.Location = new System.Drawing.Point(8, 108);
-            this.radioControl3.Margin = new System.Windows.Forms.Padding(4);
+            this.radioControl3.Location = new System.Drawing.Point(6, 88);
             this.radioControl3.Name = "radioControl3";
-            this.radioControl3.Size = new System.Drawing.Size(236, 21);
+            this.radioControl3.Size = new System.Drawing.Size(189, 17);
             this.radioControl3.TabIndex = 76;
             this.radioControl3.Tag = "3";
             this.radioControl3.Text = "Received packet comparator";
@@ -992,10 +960,9 @@ namespace SnifferDemo
             // radioControl2
             // 
             this.radioControl2.AutoSize = true;
-            this.radioControl2.Location = new System.Drawing.Point(8, 80);
-            this.radioControl2.Margin = new System.Windows.Forms.Padding(4);
+            this.radioControl2.Location = new System.Drawing.Point(6, 65);
             this.radioControl2.Name = "radioControl2";
-            this.radioControl2.Size = new System.Drawing.Size(99, 21);
+            this.radioControl2.Size = new System.Drawing.Size(81, 17);
             this.radioControl2.TabIndex = 75;
             this.radioControl2.Tag = "2";
             this.radioControl2.Text = "TX sweep";
@@ -1005,10 +972,9 @@ namespace SnifferDemo
             // radioControl1
             // 
             this.radioControl1.AutoSize = true;
-            this.radioControl1.Location = new System.Drawing.Point(8, 52);
-            this.radioControl1.Margin = new System.Windows.Forms.Padding(4);
+            this.radioControl1.Location = new System.Drawing.Point(6, 42);
             this.radioControl1.Name = "radioControl1";
-            this.radioControl1.Size = new System.Drawing.Size(146, 21);
+            this.radioControl1.Size = new System.Drawing.Size(116, 17);
             this.radioControl1.TabIndex = 74;
             this.radioControl1.Tag = "1";
             this.radioControl1.Text = "Interval transmit";
@@ -1019,10 +985,9 @@ namespace SnifferDemo
             // 
             this.radioControl0.AutoSize = true;
             this.radioControl0.Checked = true;
-            this.radioControl0.Location = new System.Drawing.Point(8, 23);
-            this.radioControl0.Margin = new System.Windows.Forms.Padding(4);
+            this.radioControl0.Location = new System.Drawing.Point(6, 19);
             this.radioControl0.Name = "radioControl0";
-            this.radioControl0.Size = new System.Drawing.Size(193, 21);
+            this.radioControl0.Size = new System.Drawing.Size(153, 17);
             this.radioControl0.TabIndex = 73;
             this.radioControl0.TabStop = true;
             this.radioControl0.Tag = "0";
@@ -1030,11 +995,21 @@ namespace SnifferDemo
             this.radioControl0.UseVisualStyleBackColor = true;
             this.radioControl0.CheckedChanged += new System.EventHandler(this.radioControls_CheckedChanged);
             // 
+            // buttonDataDump2
+            // 
+            this.buttonDataDump2.Location = new System.Drawing.Point(244, 8);
+            this.buttonDataDump2.Name = "buttonDataDump2";
+            this.buttonDataDump2.Size = new System.Drawing.Size(232, 23);
+            this.buttonDataDump2.TabIndex = 61;
+            this.buttonDataDump2.Text = "Send Data Dump (FF, FE, ...)";
+            this.buttonDataDump2.UseVisualStyleBackColor = true;
+            this.buttonDataDump2.Click += new System.EventHandler(this.buttonDataDump2_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1357, 709);
+            this.ClientSize = new System.Drawing.Size(1018, 576);
             this.Controls.Add(this.groupControl);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button1);
@@ -1042,7 +1017,6 @@ namespace SnifferDemo
             this.Controls.Add(this.groupConfig);
             this.Controls.Add(this.statusStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Sniffer Demo v1.0";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
@@ -1140,6 +1114,9 @@ namespace SnifferDemo
         private System.Windows.Forms.RadioButton radioControl1;
         private System.Windows.Forms.RadioButton radioControl0;
         private System.Windows.Forms.CheckBox checkBoxIgnorePid;
+        private System.Windows.Forms.Button buttonSendDataDump;
+        private System.Windows.Forms.Label labelDataDump;
+        private System.Windows.Forms.Button buttonDataDump2;
     }
 }
 

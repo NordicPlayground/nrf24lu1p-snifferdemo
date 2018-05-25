@@ -42,9 +42,19 @@
 
 #define CMD_TRANSMIT_PACKET_DUMP 0xA0
 
-#define DATA_DUMP_BUFFER_SIZE  150
+#define DATA_DUMP_BUFFER_SIZE         150
+#define DATA_DUMP_TX_PACKET_SIZE      25
+#define DATA_DUMP_RETRANS_MULTIPLIER  4
 
-typedef enum e_UsbWriteCommands{ USB_FIRMWARE_VERSION = 0xa1, USB_BUTTON_PRESSED = 0xa2, USB_RADIO_DATA = 0xb0, USB_RADIO_CONFIG_DATA = 0xb1, USB_RADIO_CONFIRM_DEACTIVATE = 0xb2, USB_RADIO_PACKET_SENT = 0xb3, USB_MANY_PACKETS_RECEIVED = 0xc0, USB_TIME_BETWEEN_PACKETS = 0xC1 };
+typedef enum e_UsbWriteCommands{ USB_FIRMWARE_VERSION = 0xA1, 
+                                 USB_BUTTON_PRESSED = 0xA2, 
+                                 USB_RADIO_DATA = 0xB0, 
+                                 USB_RADIO_CONFIG_DATA = 0xB1, 
+                                 USB_RADIO_CONFIRM_DEACTIVATE = 0xB2, 
+                                 USB_RADIO_PACKET_SENT = 0xbB3, 
+                                 USB_MANY_PACKETS_RECEIVED = 0xC0, 
+                                 USB_TIME_BETWEEN_PACKETS = 0xC1,
+                                 USB_DATA_DUMP_COMPLETE = 0xC2};
 data uint8_t packet_received=0, pckCounter = 0, i, radioActive = 0, allowRadioCom = 1, radio_status = RF_IDLE;
 data uint8_t timer_div = 0, received_packets = 0, radio_packet_length, time_between_packets_hibyte = 0, packet_sent = 0;
 idata uint16_t total_received_packets;
@@ -64,6 +74,7 @@ uint8_t tx_pl;
 
 xdata uint8_t data_dump_buffer[DATA_DUMP_BUFFER_SIZE];
 xdata uint8_t data_dump_buffer_radio_offset;
+xdata uint8_t data_dump_ack_flags, data_dump_retransmit_mult_cnt;
 xdata volatile uint8_t data_dump_in_progress = 0;
 
 void some_delay()
@@ -89,6 +100,7 @@ void activate_bootloader()
   REGXL = 1;
   REGXC = 0x08;
 }
+
 void sendUsbPackage(uint8_t packageType);
 void parse_commands(void)
 {
@@ -159,24 +171,26 @@ void parse_commands(void)
         CE_HIGH();*/
         break;
       case CMD_TRANSMIT_PACKET_DUMP:
-        length = out1buf[1];
-        offset = out1buf[2];
+        offset = out1buf[1];
+        length = out1buf[2];
         // A length of 0xFF means we should flush the buffer over the radio
         if(length == 0xFF)
         {
           CE_LOW();
           hal_nrf_set_operation_mode(HAL_NRF_PTX);
-          radio_status = RF_BUSY;   
+          radio_status = RF_IDLE;   
           data_dump_buffer_radio_offset = 0;
+          data_dump_ack_flags = 0;
           data_dump_in_progress = 1;
         }
         // When the length is less than 0xFF and the sum of length + offset is less than the buffer size, 
         // copy the data to the buffer
-        else if((length + offset) < DATA_DUMP_BUFFER_SIZE)
+        else if((length + offset) <= DATA_DUMP_BUFFER_SIZE)
         {
             for(i = 0; i < length; i++)
                 data_dump_buffer[i + offset] = out1buf[i + 3];
         }
+        //sendUsbPackage(USB_DATA_DUMP_COMPLETE);
         
         break;
     default:
@@ -250,6 +264,10 @@ void sendUsbPackage(uint8_t packageType)
       in1buf[2] = received_packets;
       in1bc = 3;
       break;
+    case USB_DATA_DUMP_COMPLETE:
+      in1buf[2] = data_dump_ack_flags;
+      in1bc = 3;
+      break;
 
   }
 }
@@ -261,6 +279,7 @@ void timer0_init()
 }
 void main(void)
 {
+  int i;
   usb_init();
   P0DIR = 0x00;
   delay_10ms();
@@ -280,47 +299,54 @@ void main(void)
   P0 = 0;
   EA = 1;  
   packet_received = 0;
+  for(i = 0; i < 150; i++) data_dump_buffer[i] = 0xBB;
   //cklf_wdog_init(0xFFFF);
   while(1)
   {
     if( radioActive )
     {
-      if( radio_status == RF_RX_DR )
-      {
-        //if( send_time_between_packets )
-          //usb_send_radio_and_freq_data(radio_packet_length);  
-          if( send_time_between_packets )
-          {
-            usb_send_radio_and_freq_data(radio_packet_length);
-            send_time_between_packets = 0;
-          }else usb_send_radio_data(radio_packet_length);
-        radio_status = RF_IDLE;
-      }
-      if( packet_sent )
-      {
-        if( settings.radioMode == 0 || settings.radioMode == 3)
-          in1buf[2] = 2;
-        else
-          in1buf[2] = (packet_sent == 1);
-        radio_status = RF_IDLE;
-        sendUsbPackage(USB_RADIO_PACKET_SENT); 
-        hal_nrf_set_operation_mode(HAL_NRF_PRX);
-        CE_HIGH();
-        packet_sent = 0;
-      }
       if(data_dump_in_progress)
       {
         switch(radio_status)
         {
           case RF_IDLE:
-            tx_pl = ((data_dump_buffer_radio_offset + settings.payloadLength) <= DATA_DUMP_BUFFER_SIZE)
-                    ? settings.payloadLength : (DATA_DUMP_BUFFER_SIZE - data_dump_buffer_radio_offset);
+            tx_pl = ((data_dump_buffer_radio_offset + DATA_DUMP_TX_PACKET_SIZE) <= DATA_DUMP_BUFFER_SIZE)
+                    ? DATA_DUMP_TX_PACKET_SIZE : (DATA_DUMP_BUFFER_SIZE - data_dump_buffer_radio_offset);
             hal_nrf_write_tx_pload(&data_dump_buffer[data_dump_buffer_radio_offset], tx_pl);
+            data_dump_retransmit_mult_cnt = DATA_DUMP_RETRANS_MULTIPLIER;
             data_dump_buffer_radio_offset += tx_pl;
             radio_status = RF_BUSY;
+            CE_PULSE();
             break;
           case RF_MAX_RT:
+            if(data_dump_retransmit_mult_cnt--)  
+            {
+              radio_status = RF_BUSY;
+              CE_PULSE();
+            }
+            else
+            {
+              data_dump_ack_flags = data_dump_ack_flags << 1 | 0x00;
+              hal_nrf_flush_tx();
+              if(data_dump_buffer_radio_offset < DATA_DUMP_BUFFER_SIZE)
+              {
+                radio_status = RF_IDLE;
+              }
+              else
+              {
+                radio_status = RF_IDLE;
+                data_dump_in_progress = 0;
+                hal_nrf_set_operation_mode(HAL_NRF_PRX);
+                CE_HIGH();
+                sendUsbPackage(USB_DATA_DUMP_COMPLETE);
+              }   
+            }
+            packet_sent = 0;  
+            break;
+          
           case RF_TX_DS:
+            data_dump_ack_flags = data_dump_ack_flags << 1 | 0x01;
+
             if(data_dump_buffer_radio_offset < DATA_DUMP_BUFFER_SIZE)
             {
               radio_status = RF_IDLE;
@@ -331,8 +357,9 @@ void main(void)
               data_dump_in_progress = 0;
               hal_nrf_set_operation_mode(HAL_NRF_PRX);
               CE_HIGH();
+              sendUsbPackage(USB_DATA_DUMP_COMPLETE);
             }   
-            packet_sent = 0;            
+            packet_sent = 0;   
             break;
           case RF_RX_DR:
             break;
@@ -340,6 +367,33 @@ void main(void)
             break;
           case RF_BUSY:
             break;
+        }
+      }
+      else
+      {
+        if( radio_status == RF_RX_DR )
+        {
+          //if( send_time_between_packets )
+            //usb_send_radio_and_freq_data(radio_packet_length);  
+            if( send_time_between_packets )
+            {
+              usb_send_radio_and_freq_data(radio_packet_length);
+              send_time_between_packets = 0;
+            }else usb_send_radio_data(radio_packet_length);
+          radio_status = RF_IDLE;
+        }
+        if( packet_sent )
+        {
+          if( settings.radioMode == 0 || settings.radioMode == 3)
+            in1buf[2] = 2;
+          else
+            in1buf[2] = (packet_sent == 1);
+          if(packet_sent == 2) hal_nrf_flush_tx();
+          radio_status = RF_IDLE;
+          sendUsbPackage(USB_RADIO_PACKET_SENT); 
+          hal_nrf_set_operation_mode(HAL_NRF_PRX);
+          CE_HIGH();
+          packet_sent = 0;
         }
       }
     }
@@ -370,7 +424,7 @@ void rf_interrupt() interrupt INTERRUPT_RFIRQ
   {
     case (1<<HAL_NRF_MAX_RT):                 // Max retries reached
       P03 = 1;
-      hal_nrf_flush_tx();                     // flush tx fifo, avoid fifo jam
+      //hal_nrf_flush_tx();                     // flush tx fifo, avoid fifo jam
       radio_status = RF_MAX_RT;
       packet_sent = 2;
       break;

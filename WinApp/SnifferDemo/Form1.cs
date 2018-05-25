@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 
 using LibUsbDotNet;
 using LibUsbDotNet.Usb;
@@ -445,6 +446,10 @@ namespace SnifferDemo
                         // Radio packet stuff
                         radioPacketFrequencyCounter++;
                         if (CustomRadioFunctionality()) AddListItem(true);
+                        break;
+                    case 0xC2:
+                        labelDataDump.Text = "ACK Received!!";
+                        labelDataDump.Text += "\r\nACK flags: " + lastInPacket[2].ToString("X");
                         break;
                     default:
                         MessageBox.Show("Unknown USB-package received!");
@@ -1065,6 +1070,61 @@ namespace SnifferDemo
             }
             txSweepMode++;
             if (txSweepMode > 3) txSweepMode = 0;
+        }
+
+        private void sendDataDump(int offset, int length, bool invert)
+        {
+            byte[] usbCmd_ = new byte[length + 3];
+            if (isConnected == t_ConnectionType.CONNECTED_NORMAL)
+            {
+                usbCmd_[0] = 0xA0;
+                if(offset != 0xFF)
+                {
+                    usbCmd_[1] = (byte)(offset & 0xFF);
+                    usbCmd_[2] = (byte)(length & 0xFF);
+                    if(invert)
+                    {
+                        for (int i = 0; i < length; i++) usbCmd_[3 + i] = (byte)((255 - offset - i) & 0xFF);
+                    }
+                    else
+                    {
+                        for (int i = 0; i < length; i++) usbCmd_[3 + i] = (byte)((offset + i) & 0xFF);
+                    }
+                    mEpWriter.Write(usbCmd_, 0, length + 3, 100);
+
+                }
+                else
+                {
+                    usbCmd_[1] = 0xFF;
+                    usbCmd_[2] = 0xFF;
+                    mEpWriter.Write(usbCmd_, 0, 3, 100);
+                }
+            }
+            Thread.Sleep(5);
+        }
+
+        private void buttonSendDataDump_Click(object sender, EventArgs e)
+        {
+            sendDataDump(0, 50, false);
+            sendDataDump(50, 50, false);
+            sendDataDump(100, 50, false);
+            //sendDataDump(75, 25);
+            //sendDataDump(100, 25);
+            //sendDataDump(125, 25);
+            sendDataDump(0xFF, 0xFF, false);
+            labelDataDump.Text = "Data dump message sent. Waiting for response....";
+        }
+
+        private void buttonDataDump2_Click(object sender, EventArgs e)
+        {
+            sendDataDump(0, 50, true);
+            sendDataDump(50, 50, true);
+            sendDataDump(100, 50, true);
+            //sendDataDump(75, 25);
+            //sendDataDump(100, 25);
+            //sendDataDump(125, 25);
+            sendDataDump(0xFF, 0xFF, true);
+            labelDataDump.Text = "Data dump message 2 sent. Waiting for response....";
         }
 
         private void btnComparator_Click(object sender, EventArgs e)
