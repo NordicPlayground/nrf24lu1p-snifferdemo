@@ -64,6 +64,7 @@ uint8_t tx_pl;
 
 xdata uint8_t data_dump_buffer[DATA_DUMP_BUFFER_SIZE];
 xdata uint8_t data_dump_buffer_radio_offset;
+xdata volatile uint8_t data_dump_in_progress = 0;
 
 void some_delay()
 {
@@ -167,6 +168,7 @@ void parse_commands(void)
           hal_nrf_set_operation_mode(HAL_NRF_PTX);
           radio_status = RF_BUSY;   
           data_dump_buffer_radio_offset = 0;
+          data_dump_in_progress = 1;
         }
         // When the length is less than 0xFF and the sum of length + offset is less than the buffer size, 
         // copy the data to the buffer
@@ -271,9 +273,9 @@ void main(void)
   RFCKEN = 1;        // enable L01 clock
   RFCTL = 0x10;      // L01 SPI speed = max (CK/2) & SPI enable
 
-  //timer0_init();
+  timer0_init();
   TICKDV = 32;
-  //cklf_rtc_init(0x00, 100);
+  cklf_rtc_init(0x00, 100);
   WUIRQ = 1;
   P0 = 0;
   EA = 1;  
@@ -305,6 +307,40 @@ void main(void)
         hal_nrf_set_operation_mode(HAL_NRF_PRX);
         CE_HIGH();
         packet_sent = 0;
+      }
+      if(data_dump_in_progress)
+      {
+        switch(radio_status)
+        {
+          case RF_IDLE:
+            tx_pl = ((data_dump_buffer_radio_offset + settings.payloadLength) <= DATA_DUMP_BUFFER_SIZE)
+                    ? settings.payloadLength : (DATA_DUMP_BUFFER_SIZE - data_dump_buffer_radio_offset);
+            hal_nrf_write_tx_pload(&data_dump_buffer[data_dump_buffer_radio_offset], tx_pl);
+            data_dump_buffer_radio_offset += tx_pl;
+            radio_status = RF_BUSY;
+            break;
+          case RF_MAX_RT:
+          case RF_TX_DS:
+            if(data_dump_buffer_radio_offset < DATA_DUMP_BUFFER_SIZE)
+            {
+              radio_status = RF_IDLE;
+            }
+            else
+            {
+              radio_status = RF_IDLE;
+              data_dump_in_progress = 0;
+              hal_nrf_set_operation_mode(HAL_NRF_PRX);
+              CE_HIGH();
+            }   
+            packet_sent = 0;            
+            break;
+          case RF_RX_DR:
+            break;
+          case RF_TX_AP:
+            break;
+          case RF_BUSY:
+            break;
+        }
       }
     }
   }
